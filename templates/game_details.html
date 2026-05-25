@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ game.title }}{% endblock %}
+
+{% block content %}
+
+<div class="position-relative mb-4 rounded overflow-hidden" style="max-height: 480px;">
+    {% if game.img.startswith('http') %}
+        <img src="{{ game.img }}" alt="{{ game.title }}" class="w-100 object-fit-cover" style="height: 480px; filter: brightness(0.55);">
+    {% else %}
+        <img src="{{ game.img }}" alt="{{ game.title }}" class="w-100 object-fit-cover" style="height: 480px; filter: brightness(0.55);">
+    {% endif %}
+
+    <div class="position-absolute bottom-0 start-0 p-4">
+        <h1 class="fw-bold text-white" style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem;">
+            {{ game.title }}
+        </h1>
+        <span class="badge bg-warning text-dark fs-6">⭐ {{ game.rating }}</span>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div id="screenshotCarousel" class="carousel slide rounded overflow-hidden mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    {% if game.img.startswith('http') %}
+                        <img src="{{ game.img }}" class="d-block w-100" style="height: 360px; object-fit: cover;" alt="Screenshot 1">
+                    {% else %}
+                        <img src="{{ game.img }}" class="d-block w-100" style="height: 360px; object-fit: cover;" alt="Screenshot 1">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white border-secondary mb-4">
+            <div class="card-body">
+                <h4 class="card-title border-bottom border-secondary pb-2 mb-3">About This Game</h4>
+                <p class="card-text lead">{{ game.description }}</p>
+            </div>
+        </div>
+
+        <div class="card bg-dark text-white border-secondary">
+            <div class="card-body">
+                <h4 class="card-title border-bottom border-secondary pb-2 mb-3">
+                    Player Reviews
+                    <span class="badge bg-success ms-2" style="font-size: 0.7rem;">Overwhelmingly Positive</span>
+                </h4>
+                {% set reviews = [
+                {"user": "ShadowBlade99", "score": "10/10", "text": "One of the best gaming experiences I've ever had. Absolutely cannot put it down."},
+                {"user": "NightOwlGamer", "score": "9/10", "text": "Incredible atmosphere and gameplay. A must-play for any serious gamer."},
+                {"user": "PixelWarrior", "score": "10/10", "text": "Stunning visuals and tight mechanics. Sets a new bar for the genre."},
+                ] %}
+                {% for review in reviews %}
+                <div class="d-flex gap-3 mb-3 {% if not loop.last %}border-bottom border-secondary pb-3{% endif %}">
+                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 46px; height: 46px; font-size: 1.1rem;">
+                        {{ review.user[0] }}
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <strong>{{ review.user }}</strong>
+                            <span class="badge bg-warning text-dark">⭐ {{ review.score }}</span>
+                        </div>
+                        <p class="mb-0 text-white-50">{{ review.text }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card bg-dark text-white border-secondary sticky-top" style="top: 80px;">
+            {% if game.img.startswith('http') %}
+                <img src="{{ game.img }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ game.title }}">
+            {% else %}
+                <img src="{{ game.img }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ game.title }}">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ game.title }}</h5>
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="badge bg-warning text-dark">⭐ {{ game.rating }}</span>
+                    <span class="text-white-50 small">Overall Rating</span>
+                </div>
+
+                <hr class="border-secondary">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-white-50">Price</span>
+                    <span class="fs-4 fw-bold text-success">{{ game.price }}</span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a href="{{ game.link }}" target="_blank" class="btn btn-success btn-lg">
+                        🛒 {{ 'Download Free' if game.price == 'Free' else 'Buy on ' + game.store }}
+                    </a>
+                    {% if game.price != 'Free' %}
+                    <a href="{{ url_for('add_to_cart', game_id=game.id) }}" class="btn btn-warning btn-lg">
+                        🛒 Add to Cart
+                    </a>
+                    {% endif %}
+                </div>
+
+                <hr class="border-secondary">
+
+                <ul class="list-unstyled text-white-50 small mb-0">
+                    <li class="mb-1">🖥 Windows / macOS / Linux</li>
+                    <li class="mb-1">🎮 Controller Support</li>
+                    <li>🌐 Online Multiplayer</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary w-100">← Back to All Games</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

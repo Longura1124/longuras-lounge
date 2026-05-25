@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}About Page{% endblock %}
+
+{% block content %}
+<div class="about-hero">
+    <h1 class="glitch-title" data-text="Longura's Lounge">Longura's Lounge</h1>
+    <div class="accent-line"></div>
+    <p class="hero-sub">Your personal corner of the gaming universe</p>
+</div>
+<div class="stats-row">
+    <div class="stat-cell">
+        <span class="stat-number">{{ games | length }}</span>
+        <span class="stat-label">Games Catalogued</span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Handpicked</span>
+    </div>
+    <div class="stat-cell">
+        <span class="stat-number">∞</span>
+        <span class="stat-label">Hours of Fun</span>
+    </div>
+</div>
+<div class="mission-block">
+    <p>
+        Longura's Lounge is a <strong>personal game collection</strong> built for people who take
+        gaming seriously. No algorithm, no ads, no sponsored placements — just an honest list of
+        games that are genuinely worth your time, rated and described by someone who has actually
+        played them.
+    </p>
+</div>
+<div class="features-grid">
+    <div class="feature-card">
+        <span class="feature-icon">🎮</span>
+        <div class="feature-title">Curated Library</div>
+        <p class="feature-text">Every game in the lounge is handpicked. No filler, no pay-to-list — only titles that
+            genuinely earned their spot.</p>
+    </div>
+    <div class="feature-card">
+        <span class="feature-icon">⭐</span>
+        <div class="feature-title">Honest Ratings</div>
+        <p class="feature-text">Ratings are personal and unsponsored. If a game scores 10/10 here, it means
+            something.</p>
+    </div>
+    <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <div class="feature-title">Easy Discovery</div>
+        <p class="feature-text">Browse the full catalogue, jump straight to a game's detail page, and find your next
+            obsession fast.</p>
+    </div>
+    <div class="feature-card">
+        <span class="feature-icon">🚀</span>
+        <div class="feature-title">Always Growing</div>
+        <p class="feature-text">The library expands as new games get played and evaluated. Check back often for fresh
+            additions.</p>
+    </div>
+</div>
+<div>
+    <h5 style="font-family:'Orbitron',sans-serif; font-size:0.8rem; letter-spacing:0.12em;
+               text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:4px;">
+        Currently in the lounge
+    </h5>
+    <div class="games-chips">
+        {% for game in games %}
+        <a href="{{ url_for('game_details', game_id=game['id']) }}" class="chip text-decoration-none">
+            {{ game['title'] }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<div class="cta-block">
+    <h3>Ready to find your next game?</h3>
+    <a href="{{ url_for('home') }}" class="btn btn-lg btn-outline-light px-5"
+       style="font-family:'Rajdhani',sans-serif; letter-spacing:0.1em; text-transform:uppercase;">
+        Browse the Collection →
+    </a>
+</div>
+
+{% endblock %}

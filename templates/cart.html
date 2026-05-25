@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+
+<div class="position-relative mb-4 rounded overflow-hidden" style="max-height: 200px;">
+    <div style="height: 200px; background: linear-gradient(135deg, #0d0d14, #1a1a2e, #0d1b4b); filter: brightness(0.7);"></div>
+    <div class="position-absolute bottom-0 start-0 p-4">
+        <h1 class="fw-bold text-white" style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem;">
+            Your Cart
+        </h1>
+    </div>
+</div>
+
+{% if items %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card bg-dark text-white border-secondary">
+            <div class="card-body">
+                <h4 class="card-title border-bottom border-secondary pb-2 mb-3">Cart Items</h4>
+                {% for item in items %}
+                <div class="d-flex gap-3 mb-3 {% if not loop.last %}border-bottom border-secondary pb-3{% endif %}">
+
+                    {% if item.game.img.startswith('http') %}
+                        <img src="{{ item.game.img }}" style="width: 100px; height: 65px; object-fit: cover; border-radius: 8px;">
+                    {% else %}
+                        <img src="{{ item.game.img }}" style="width: 100px; height: 65px; object-fit: cover; border-radius: 8px;">
+                    {% endif %}
+
+                    <div class="flex-grow-1">
+                        <h6 class="text-white mb-1">{{ item.game.title }}</h6>
+                        <span class="text-white-50 small">{{ item.game.genre }}</span>
+                        <div class="d-flex align-items-center gap-2 mt-1">
+                            <span class="badge bg-secondary">Qty: {{ item.qty }}</span>
+                            <span class="text-success fw-bold">
+                                {% if item.subtotal > 0 %}${{ "%.2f"|format(item.subtotal) }}{% else %}Free{% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <a href="{{ url_for('remove_from_cart', game_id=item.game.id) }}" class="btn btn-outline-danger btn-sm">Remove</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card bg-dark text-white border-secondary sticky-top" style="top: 80px;">
+            <div class="card-body">
+                <h5 class="card-title border-bottom border-secondary pb-2 mb-3">Order Summary</h5>
+
+                {% for item in items %}
+                <div class="d-flex justify-content-between text-white-50 small mb-2">
+                    <span>{{ item.game.title }} x{{ item.qty }}</span>
+                    <span>{% if item.subtotal > 0 %}${{ "%.2f"|format(item.subtotal) }}{% else %}Free{% endif %}</span>
+                </div>
+                {% endfor %}
+
+                <hr class="border-secondary">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-white-50">Total</span>
+                    <span class="fs-4 fw-bold text-success">${{ "%.2f"|format(total) }}</span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success btn-lg">✔ Checkout</button>
+                    <a href="{{ url_for('clear_cart') }}" class="btn btn-outline-danger">Clear Cart</a>
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-light">← Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="card bg-dark text-white border-secondary text-center py-5">
+    <div class="card-body">
+        <h4 class="text-white-50 mb-3">Your Cart Is Clear</h4>
+        <a href="{{ url_for('home') }}" class="btn btn-success">Browse Games</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
