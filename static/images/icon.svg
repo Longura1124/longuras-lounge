@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges" role="img" aria-labelledby="lli-t lli-d">
+  <title id="lli-t">Longura's Lounge</title>
+  <desc id="lli-d">Pixel couch with a game controller resting on the seat.</desc>
+  <!-- Sofa (magenta) -->
+  <g fill="#ff2bd6">
+    <rect x="12" y="8"  width="40" height="4"/>
+    <rect x="8"  y="12" width="48" height="12"/>
+    <rect x="8"  y="24" width="8"  height="4"/>
+    <rect x="48" y="24" width="8"  height="4"/>
+    <rect x="4"  y="28" width="56" height="4"/>
+    <rect x="4"  y="32" width="12" height="4"/>
+    <rect x="48" y="32" width="12" height="4"/>
+    <rect x="4"  y="36" width="8"  height="8"/>
+    <rect x="52" y="36" width="8"  height="8"/>
+    <rect x="4"  y="44" width="12" height="4"/>
+    <rect x="48" y="44" width="12" height="4"/>
+    <rect x="4"  y="48" width="56" height="4"/>
+    <rect x="4"  y="52" width="4"  height="8"/>
+    <rect x="56" y="52" width="4"  height="8"/>
+  </g>
+  <!-- Controller (cyan) on seat -->
+  <g fill="#00e5ff">
+    <rect x="16" y="32" width="32" height="4"/>
+    <rect x="12" y="36" width="40" height="8"/>
+    <rect x="16" y="44" width="32" height="4"/>
+  </g>
+  <!-- Buttons -->
+  <g fill="#ffffff">
+    <rect x="20" y="40" width="4" height="4"/>
+    <rect x="40" y="40" width="4" height="4"/>
+  </g>
+</svg>
