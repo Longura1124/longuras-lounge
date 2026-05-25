@@ -1,5 +1,13 @@
-from ext import app
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-if __name__ == "__main__":
-    from routes import *
-    app.run(debug=True)
+app = Flask(__name__)
+
+# config (example)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# IMPORTANT: import routes AFTER app + db
+from routes import *
