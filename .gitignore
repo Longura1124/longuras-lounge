@@ -1,0 +1,6 @@
+﻿.venv/
+.venv/
+instance/database.db
+*.exe
+static/images/*.exe
+__pycache__/
