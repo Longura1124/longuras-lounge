@@ -29,6 +29,11 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            form.username.errors.append("Username already taken, choose another.")
+            return render_template("register.html", form=form)
+
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         new_user = User(
             username=form.username.data,
@@ -37,7 +42,6 @@ def register():
         )
         db.session.add(new_user)
         db.session.commit()
-        print("NEW USER REGISTERED:", new_user.username)
         return redirect("/")
     return render_template("register.html", form=form)
 
