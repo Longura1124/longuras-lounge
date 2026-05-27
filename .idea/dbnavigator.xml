@@ -61,10 +61,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" object-ref="schemas/main/tables/user" />
-      <object connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" object-ref="schemas/main/tables/game" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />
