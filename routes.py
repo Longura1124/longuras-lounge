@@ -33,7 +33,6 @@ def register():
         if existing_user:
             form.username.errors.append("Username already taken, choose another.")
             return render_template("register.html", form=form)
-
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         new_user = User(
             username=form.username.data,
@@ -52,9 +51,7 @@ def cart():
     items = []
     total = 0
     all_games = Game.query.all()
-
     for game_id, qty in cart.items():
-        # Using dot notation (.id) because 'g' is a database object now
         game = next((g for g in all_games if str(g.id) == game_id), None)
         if game:
             if game.price != "Free":
@@ -64,7 +61,6 @@ def cart():
             else:
                 subtotal = 0
             items.append({"game": game, "qty": qty, "subtotal": subtotal})
-
     return render_template("cart.html", games=all_games, items=items, total=total)
 
 
@@ -109,7 +105,6 @@ def search():
     query = request.args.get("q", "").strip()
     games = Game.query.all()
     if query:
-        # Filter database objects using dot notation .title
         results = [g for g in games if query.lower() in g.title.lower()]
     else:
         results = []
@@ -118,14 +113,12 @@ def search():
 
 @app.route("/game/<int:game_id>")
 def game_details(game_id):
-    # Fetch specific game directly from database by its ID primary key
     game = Game.query.get_or_404(game_id)
     return render_template("game_details.html", game=game)
 
 
 @app.route("/free-games")
 def free_games():
-    # Let the database do the filtering instead of standard lists!
     free = Game.query.filter_by(price="Free").all()
     return render_template("free_games.html", games=free)
 
@@ -144,61 +137,53 @@ def fps_games():
 
 @app.route("/seed-db-now-secret123")
 def seed_db():
-    from models import Game
     import requests
 
-    if Game.query.count() > 0:
-        return "Already seeded!"
+    Game.query.delete()
+    db.session.commit()
 
     CUSTOM_GAMES = [
-        {"title": "GTA V", "genre": "Action", "price": "$29.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg",
-         "link": "https://store.steampowered.com/app/271590/", "description": "Rockstar's legendary open world game."},
-        {"title": "Red Dead Redemption 2", "genre": "Action", "price": "$59.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg",
-         "link": "https://store.steampowered.com/app/1174180/",
-         "description": "Epic tale of life in America's unforgiving heartland."},
-        {"title": "Cyberpunk 2077", "genre": "RPG", "price": "$39.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg",
-         "link": "https://store.steampowered.com/app/1091500/",
-         "description": "An open-world, action-adventure RPG set in Night City."},
-        {"title": "Elden Ring", "genre": "RPG", "price": "$39.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg",
-         "link": "https://store.steampowered.com/app/1245620/", "description": "Brandish the power of the Elden Ring."},
-        {"title": "Minecraft", "genre": "Sandbox", "price": "$26.95", "store": "Mojang",
-         "img": "/static/images/minecraft.jpg", "link": "https://www.minecraft.net/",
-         "description": "Explore infinite worlds and build everything."},
-        {"title": "Valorant", "genre": "FPS", "price": "Free", "store": "Riot Games",
-         "img": "/static/images/valorant.jpg", "link": "https://playvalorant.com/",
-         "description": "A 5v5 character-based tactical shooter."},
-        {"title": "League of Legends", "genre": "MOBA", "price": "Free", "store": "Riot Games",
-         "img": "/static/images/lol.jpg", "link": "https://www.leagueoflegends.com/",
-         "description": "A team-based strategy game."},
-        {"title": "Terraria", "genre": "Sandbox", "price": "$9.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg",
-         "link": "https://store.steampowered.com/app/105600/", "description": "Dig, Fight, Explore, Build!"},
-        {"title": "Counter-Strike 2", "genre": "FPS", "price": "Free", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
-         "link": "https://store.steampowered.com/app/730/", "description": "The next chapter in the CS saga."},
-        {"title": "Far Cry 5", "genre": "FPS", "price": "$29.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/552520/header.jpg",
-         "link": "https://store.steampowered.com/app/552520/", "description": "Welcome to Hope County, Montana."},
-        {"title": "Resident Evil 4", "genre": "Action", "price": "$49.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg",
-         "link": "https://store.steampowered.com/app/2050650/", "description": "Survival is just the beginning."},
-        {"title": "Ghost of Tsushima", "genre": "Action", "price": "$49.99", "store": "Steam",
-         "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg",
-         "link": "https://store.steampowered.com/app/2215430/",
-         "description": "Experience feudal Japan like never before."}
+        {"title": "GTA V", "genre": "Action", "price": "$29.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg", "link": "https://store.steampowered.com/app/271590/", "description": "Rockstar's legendary open world game."},
+        {"title": "Red Dead Redemption 2", "genre": "Action", "price": "$59.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg", "link": "https://store.steampowered.com/app/1174180/", "description": "Epic tale of life in America's unforgiving heartland."},
+        {"title": "Cyberpunk 2077", "genre": "RPG", "price": "$39.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg", "link": "https://store.steampowered.com/app/1091500/", "description": "An open-world, action-adventure RPG set in Night City."},
+        {"title": "Elden Ring", "genre": "RPG", "price": "$39.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg", "link": "https://store.steampowered.com/app/1245620/", "description": "Brandish the power of the Elden Ring."},
+        {"title": "Minecraft", "genre": "Sandbox", "price": "$26.95", "store": "Mojang", "img": "/static/images/minecraft.jpg", "link": "https://www.minecraft.net/", "description": "Explore infinite worlds and build everything."},
+        {"title": "Valorant", "genre": "FPS", "price": "Free", "store": "Riot Games", "img": "/static/images/valorant.jpg", "link": "https://playvalorant.com/", "description": "A 5v5 character-based tactical shooter."},
+        {"title": "League of Legends", "genre": "MOBA", "price": "Free", "store": "Riot Games", "img": "/static/images/lol.jpg", "link": "https://www.leagueoflegends.com/", "description": "A team-based strategy game."},
+        {"title": "Terraria", "genre": "Sandbox", "price": "$9.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg", "link": "https://store.steampowered.com/app/105600/", "description": "Dig, Fight, Explore, Build!"},
+        {"title": "Counter-Strike 2", "genre": "FPS", "price": "Free", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/header.jpg", "link": "https://store.steampowered.com/app/730/", "description": "The next chapter in the CS saga."},
+        {"title": "Far Cry 5", "genre": "FPS", "price": "$29.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/552520/header.jpg", "link": "https://store.steampowered.com/app/552520/", "description": "Welcome to Hope County, Montana."},
+        {"title": "Resident Evil 4", "genre": "Action", "price": "$49.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2050650/header.jpg", "link": "https://store.steampowered.com/app/2050650/", "description": "Survival is just the beginning."},
+        {"title": "Ghost of Tsushima", "genre": "Action", "price": "$49.99", "store": "Steam", "img": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2215430/header.jpg", "link": "https://store.steampowered.com/app/2215430/", "description": "Experience feudal Japan like never before."}
     ]
 
     for g in CUSTOM_GAMES:
-        game = Game(title=g["title"], genre=g["genre"], img=g["img"], rating="4.8/5", price=g["price"],
-                    store=g["store"], link=g["link"], description=g["description"])
+        game = Game(title=g["title"], genre=g["genre"], img=g["img"], rating="4.8/5",
+                    price=g["price"], store=g["store"], link=g["link"], description=g["description"])
         db.session.add(game)
+
+    try:
+        response = requests.get("https://www.freetogame.com/api/games", timeout=10)
+        api_data = response.json()
+        for g in api_data[:12]:
+            if not any(c["title"].lower() == g["title"].lower() for c in CUSTOM_GAMES):
+                game = Game(
+                    title=g["title"],
+                    genre=g["genre"],
+                    img=g["thumbnail"],
+                    rating="4.2/5",
+                    price="Free",
+                    store=g["platform"],
+                    link=g["freetogame_profile_url"],
+                    description=g.get("short_description", "No description available.")
+                )
+                db.session.add(game)
+    except Exception as e:
+        print(f"API fetch failed: {e}")
 
     db.session.commit()
     return "Games seeded successfully!"
+
 
 @app.route("/admin-users-secret123")
 def admin_users():
