@@ -19,9 +19,18 @@ def about():
     return render_template("about.html", games=games)
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     games = Game.query.all()
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = User.query.filter_by(username=username).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            session["user"] = user.username
+            return redirect("/")
+        else:
+            return render_template("login.html", games=games, error="Invalid username or password.")
     return render_template("login.html", games=games)
 
 

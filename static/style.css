@@ -2,6 +2,13 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+p, h1, h2, h3, h4, h5, span, a {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 body {
@@ -36,6 +43,7 @@ body {
     background-color: rgba(255, 255, 255, 0.1) !important;
     color: #63b3ed !important;
 }
+
 h1 {
     color: white;
 }
@@ -241,7 +249,6 @@ p, body {
     text-transform: uppercase;
 }
 
-/* ── Stats row ── */
 .stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -278,7 +285,6 @@ p, body {
     display: block;
 }
 
-/* ── Feature cards ── */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -341,7 +347,6 @@ p, body {
     line-height: 1.6;
 }
 
-/* ── Mission block ── */
 .mission-block {
     border-left: 3px solid #63b3ed;
     padding: 24px 32px;
@@ -399,6 +404,27 @@ p, body {
     color: #fff;
     margin-bottom: 24px;
 }
+
 a {
-  text-decoration: none;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0d0d14;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #63b3ed, #1a0d2e);
+    border-radius: 10px;
+    min-height: 60px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #3a7abf, #0a0820);
 }

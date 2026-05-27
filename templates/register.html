@@ -1,40 +1,71 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<div class="text-center">
-    <h1>Register Page</h1>
-</div>
-
-<div class="row justify-content-center">
-    {% for errors in form.errors.values() %}
-    <div class="alert alert-danger">
-        {% for error in errors %}
-        {{ error }}
-        {% endfor %}
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 style="font-family:'Orbitron',sans-serif; color:white; letter-spacing:0.1em;">Register</h1>
+        <div style="width:60px; height:3px; background:linear-gradient(90deg,#63b3ed,#ed8936); margin:12px auto 0; border-radius:2px;"></div>
     </div>
-    {% endfor %}
-    <form method="POST" enctype="multipart/form-data" class="col-6 p-5">
-        {{ form.hidden_tag() }}
-        <div class="row mt-2">
-            {{ form.username(class="form-control", placeholder=form.username.label.text) }}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+
+            {% for errors in form.errors.values() %}
+            <div class="alert alert-danger" style="background:rgba(220,53,69,0.15); border:1px solid rgba(220,53,69,0.4); color:#ff6b6b;">
+                {% for error in errors %}
+                {{ error }}
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <form method="POST" enctype="multipart/form-data"
+                  style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);
+                         border-radius:16px; padding:40px;">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.username(class="form-control",
+                       placeholder=form.username.label.text,
+                       style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+                              color:white; border-radius:8px; padding:12px 16px;") }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.password(class="form-control",
+                       placeholder=form.password.label.text,
+                       style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+                              color:white; border-radius:8px; padding:12px 16px;") }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.confirm_password(class="form-control",
+                       placeholder=form.confirm_password.label.text,
+                       style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+                              color:white; border-radius:8px; padding:12px 16px;") }}
+                </div>
+
+                <div class="mb-4">
+                    {{ form.gender(class="form-control",
+                       style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+                              color:white; border-radius:8px; padding:12px 16px;") }}
+                </div>
+
+                <div class="d-grid">
+                    {{ form.register(class="btn",
+                       style="background:linear-gradient(90deg,#63b3ed,#4a90d9); color:white;
+                              border:none; border-radius:8px; padding:12px; font-family:'Orbitron',sans-serif;
+                              font-size:0.85rem; letter-spacing:0.1em; width:100%;") }}
+                </div>
+
+                <p class="text-center mt-3" style="color:rgba(255,255,255,0.4); font-size:0.9rem;">
+                    Already have an account?
+                    <a href="{{ url_for('login') }}" style="color:#63b3ed;">Login</a>
+                </p>
+
+            </form>
         </div>
-        <div class="row mt-2">
-            {{ form.password(class="form-control", placeholder=form.password.label.text) }}
-        </div>
-        <div class="row mt-2">
-            {{ form.confirm_password(class="form-control", placeholder=form.confirm_password.label.text) }}
-        </div>
-        <div class="row mt-2">
-            {{ form.gender(class="form-control") }}
-        </div>
-        <div class="row mt-2">
-            {{ form.register(class="btn btn-success", placeholder=form.register.label.text) }}
-        </div>
-    </form>
+    </div>
 </div>
-
 {% endblock %}
-
 
 
