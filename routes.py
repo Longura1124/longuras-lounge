@@ -195,3 +195,12 @@ def seed_db():
 
     db.session.commit()
     return "Games seeded successfully!"
+
+@app.route("/admin-users-secret123")
+def admin_users():
+    users = User.query.all()
+    result = "<h2>Registered Users</h2><table border='1'><tr><th>ID</th><th>Username</th><th>Gender</th></tr>"
+    for u in users:
+        result += f"<tr><td>{u.id}</td><td>{u.username}</td><td>{u.gender}</td></tr>"
+    result += "</table>"
+    return result
