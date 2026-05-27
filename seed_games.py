@@ -42,20 +42,17 @@ CUSTOM_GAMES = [
      "link": "https://store.steampowered.com/app/2215430/", "description": "Experience feudal Japan like never before."}
 ]
 with app.app_context():
-    db.drop_all()  # Clear everything out one time to sync cleanly
+    db.drop_all()
     db.create_all()
 
-    # 1. Add your custom list
     for g in CUSTOM_GAMES:
         game = Game(title=g["title"], genre=g["genre"], img=g["img"], rating="4.8/5", price=g["price"], store=g["store"], link=g["link"], description=g["description"])
         db.session.add(game)
 
-    # 2. Fetch and append the FreeToGame items
     try:
         response = requests.get("https://www.freetogame.com/api/games")
         api_data = response.json()
         for g in api_data[:12]:
-            # Simple check to make sure we don't duplicate overlapping titles (like Valorant)
             if not any(custom["title"].lower() == g["title"].lower() for custom in CUSTOM_GAMES):
                 game = Game(
                     title=g["title"],
