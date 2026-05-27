@@ -20,6 +20,3 @@ bcrypt = Bcrypt(app)
 with app.app_context():
     from models import User, Game
     db.create_all()
-    if Game.query.count() == 0:
-        import subprocess
-        subprocess.run(["python3", "seed_games.py"])
