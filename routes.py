@@ -9,7 +9,7 @@ profiles = []
 
 @app.route("/")
 def home():
-    games = Game.query.all()  # Fetch all games from the database
+    games = Game.query.all()
     return render_template("main.html", games=games)
 
 
@@ -134,6 +134,5 @@ def rpg_games():
 
 @app.route("/fps-games")
 def fps_games():
-    # FreeToGame might use "Shooter" instead of "FPS", adjust if needed
     fps = Game.query.filter(Game.genre.like("%Shooter%")).all() or Game.query.filter_by(genre="FPS").all()
     return render_template("fps_games.html", games=fps)

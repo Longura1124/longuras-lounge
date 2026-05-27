@@ -11,34 +11,34 @@
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
     <assistants>
-      <assistant-state connection-id="c5dde146-db6d-483f-8d5b-1e6405750b11" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
-        <tools />
-      </assistant-state>
       <assistant-state connection-id="c5dde146-db6d-483f-8d5b-1e6405750b11" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
-      <assistant-state connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+      <assistant-state connection-id="c5dde146-db6d-483f-8d5b-1e6405750b11" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
       <assistant-state connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
-      <assistant-state connection-id="351c2634-53fb-4252-93ad-f97bc81bfce3" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+      <assistant-state connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
       <assistant-state connection-id="351c2634-53fb-4252-93ad-f97bc81bfce3" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
-      <assistant-state connection-id="e558d27c-71fc-4eb2-9455-fd3b9d0fd65f" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+      <assistant-state connection-id="351c2634-53fb-4252-93ad-f97bc81bfce3" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
       <assistant-state connection-id="e558d27c-71fc-4eb2-9455-fd3b9d0fd65f" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
-      <assistant-state connection-id="d8f362b4-d562-4e07-8a9f-8f82cd98af5f" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+      <assistant-state connection-id="e558d27c-71fc-4eb2-9455-fd3b9d0fd65f" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
       <assistant-state connection-id="d8f362b4-d562-4e07-8a9f-8f82cd98af5f" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
+        <tools />
+      </assistant-state>
+      <assistant-state connection-id="d8f362b4-d562-4e07-8a9f-8f82cd98af5f" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
     </assistants>
@@ -61,7 +61,10 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" object-ref="schemas/main/tables/user" />
+      <object connection-id="60f5037b-eccf-436b-b2ae-e11fa5b1c52e" object-ref="schemas/main/tables/game" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />
